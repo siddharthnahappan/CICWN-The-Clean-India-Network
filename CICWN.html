@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clean India Circular Waste Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-deep: #1A3A2A;
+    --green-mid: #2D5A3D;
+    --lime: #7EC83A;
+    --lime-muted: #A8D96A;
+    --sand: #F5EDD6;
+    --sand-dark: #EBE0C4;
+    --terracotta: #C45C2E;
+    --terracotta-light: #E07A50;
+    --cream: #FAFAF5;
+    --charcoal: #2C2C2C;
+    --gray: #6B7280;
+    --gray-light: #E5E7EB;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(26, 58, 42, 0.97);
+    backdrop-filter: blur(8px);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    color: var(--lime);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .nav-logo span { color: var(--sand); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    color: rgba(245,237,214,0.8);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--lime); }
+  .nav-cta {
+    background: var(--lime) !important;
+    color: var(--green-deep) !important;
+    padding: 0.5rem 1.25rem;
+    border-radius: 100px;
+    font-weight: 600 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--lime-muted) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--green-deep);
+    padding: 120px 5% 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(126,200,58,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(126,200,58,0.15);
+    border: 1px solid rgba(126,200,58,0.3);
+    color: var(--lime);
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.375rem 0.875rem;
+    border-radius: 100px; margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--sand);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    color: var(--lime);
+    font-style: normal;
+  }
+  .hero-desc {
+    color: rgba(245,237,214,0.7);
+    font-size: 1.1rem; line-height: 1.7;
+    max-width: 500px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--lime);
+    color: var(--green-deep);
+    padding: 0.875rem 2rem;
+    border-radius: 100px;
+    font-weight: 700; font-size: 0.95rem;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); background: var(--lime-muted); }
+  .btn-secondary {
+    border: 1.5px solid rgba(245,237,214,0.3);
+    color: var(--sand);
+    padding: 0.875rem 2rem;
+    border-radius: 100px;
+    font-weight: 600; font-size: 0.95rem;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--lime); transform: translateY(-2px); }
+
+  /* CIRCULAR FLOW DIAGRAM */
+  .hero-visual {
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .flow-diagram {
+    width: 100%; max-width: 480px;
+    aspect-ratio: 1;
+    position: relative;
+  }
+  .flow-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px; height: 120px;
+    background: var(--lime);
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 0.75rem;
+    color: var(--green-deep);
+    text-align: center;
+    line-height: 1.3;
+    z-index: 2;
+    box-shadow: 0 0 40px rgba(126,200,58,0.3);
+  }
+  .flow-orbit {
+    position: absolute; inset: 0;
+    animation: spin 18s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .flow-node {
+    position: absolute;
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 600;
+    text-align: center; line-height: 1.3;
+    border: 2px solid rgba(255,255,255,0.1);
+    animation: spin-counter 18s linear infinite;
+  }
+  @keyframes spin-counter { to { transform: rotate(-360deg); } }
+  .node-report { top: 0; left: 50%; transform: translateX(-50%); background: rgba(196,92,46,0.85); color: white; }
+  .node-verify { right: 0; top: 50%; transform: translateY(-50%); background: rgba(45,90,61,0.9); color: var(--lime); border-color: var(--lime); }
+  .node-clean { bottom: 0; left: 50%; transform: translateX(-50%); background: rgba(126,200,58,0.85); color: var(--green-deep); }
+  .node-recycle { left: 0; top: 50%; transform: translateY(-50%); background: rgba(26,58,42,0.9); color: var(--sand); border-color: var(--sand-dark); }
+  .flow-icon { font-size: 1.5rem; margin-bottom: 0.2rem; }
+  .flow-ring {
+    position: absolute; inset: 10%;
+    border: 1.5px dashed rgba(126,200,58,0.25);
+    border-radius: 50%;
+  }
+
+  /* STATS BANNER */
+  .stats-banner {
+    background: var(--sand);
+    padding: 3.5rem 5%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    border-bottom: 1px solid var(--sand-dark);
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.75rem; font-weight: 800;
+    color: var(--green-deep);
+    line-height: 1;
+  }
+  .stat-num span { color: var(--terracotta); }
+  .stat-label {
+    font-size: 0.8rem; color: var(--gray);
+    font-weight: 500; margin-top: 0.4rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+
+  /* PROBLEM SECTION */
+  .problem {
+    background: var(--cream);
+    padding: 7rem 5%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .section-eyebrow {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--terracotta);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: clamp(1.75rem, 3vw, 2.5rem);
+    color: var(--green-deep);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .section-body {
+    color: var(--gray);
+    line-height: 1.75; font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .problem-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .problem-list li {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: white;
+    border-radius: 10px;
+    border-left: 3px solid var(--terracotta);
+    font-size: 0.9rem; color: var(--charcoal);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .problem-list li .icon { font-size: 1.1rem; flex-shrink: 0; }
+  .problem-visual {
+    background: var(--green-deep);
+    border-radius: 20px;
+    padding: 2.5rem;
+    color: var(--sand);
+  }
+  .problem-visual h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--lime); margin-bottom: 1.5rem;
+  }
+  .pollution-bar-group { display: flex; flex-direction: column; gap: 1.1rem; }
+  .p-bar-label { font-size: 0.8rem; color: rgba(245,237,214,0.7); margin-bottom: 0.35rem; display: flex; justify-content: space-between; }
+  .p-bar-track { background: rgba(255,255,255,0.08); border-radius: 100px; height: 8px; overflow: hidden; }
+  .p-bar-fill { height: 100%; border-radius: 100px; background: var(--terracotta); }
+  .p-bar-fill.lime { background: var(--lime); }
+  .p-bar-fill.sand { background: var(--sand-dark); }
+
+  /* HOW IT WORKS */
+  .how {
+    background: var(--green-deep);
+    padding: 7rem 5%;
+    color: var(--sand);
+  }
+  .how-header { text-align: center; margin-bottom: 4rem; }
+  .how-header .section-eyebrow { color: var(--lime); }
+  .how-header .section-title { color: var(--sand); }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    position: relative;
+  }
+  .steps-grid::before {
+    content: '';
+    position: absolute;
+    top: 52px; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(126,200,58,0.3), transparent);
+  }
+  .step-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 1.75rem 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .step-card:hover { border-color: rgba(126,200,58,0.3); transform: translateY(-4px); }
+  .step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem; font-weight: 800;
+    letter-spacing: 0.1em; color: var(--lime);
+    margin-bottom: 0.75rem;
+  }
+  .step-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .step-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    color: var(--sand); margin-bottom: 0.75rem;
+  }
+  .step-desc { font-size: 0.875rem; color: rgba(245,237,214,0.65); line-height: 1.65; }
+
+  /* WASTE PROCESSING */
+  .waste {
+    background: var(--sand);
+    padding: 7rem 5%;
+  }
+  .waste-header { margin-bottom: 3.5rem; }
+  .waste-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.25rem;
+  }
+  .waste-card {
+    border-radius: 14px;
+    padding: 1.75rem 1.25rem;
+    display: flex; flex-direction: column;
+    gap: 0.5rem;
+    transition: transform 0.2s;
+  }
+  .waste-card:hover { transform: translateY(-3px); }
+  .wc-plastic { background: #E8F4FD; border: 1.5px solid #B3D9F2; }
+  .wc-paper { background: #FFF8E7; border: 1.5px solid #FFE4A0; }
+  .wc-metal { background: #F0F0F4; border: 1.5px solid #C8C8D8; }
+  .wc-organic { background: #F0F7EC; border: 1.5px solid #B2D9A8; }
+  .wc-residual { background: #FEF1EC; border: 1.5px solid #F2C4A8; }
+  .waste-icon { font-size: 1.75rem; }
+  .waste-type {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 0.85rem;
+    color: var(--green-deep);
+  }
+  .waste-outcome {
+    font-size: 0.775rem; color: var(--gray);
+    line-height: 1.5;
+  }
+  .waste-tag {
+    display: inline-block;
+    background: var(--lime); color: var(--green-deep);
+    font-size: 0.65rem; font-weight: 700;
+    padding: 0.2rem 0.6rem; border-radius: 100px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    margin-top: 0.25rem; width: fit-content;
+  }
+  .waste-tag.orange { background: var(--terracotta-light); color: white; }
+
+  /* WORKER PROGRAM */
+  .workers {
+    background: var(--cream);
+    padding: 7rem 5%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+  .benefit-card {
+    background: var(--green-deep);
+    border-radius: 14px; padding: 1.25rem 1rem;
+    color: var(--sand);
+  }
+  .benefit-icon { font-size: 1.4rem; margin-bottom: 0.5rem; display: block; }
+  .benefit-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.25rem; }
+  .benefit-desc { font-size: 0.75rem; color: rgba(245,237,214,0.6); line-height: 1.5; }
+  .worker-quote {
+    background: var(--sand);
+    border-radius: 20px; padding: 2.5rem;
+    border-left: 4px solid var(--lime);
+  }
+  .worker-quote p {
+    font-size: 1.1rem; line-height: 1.7;
+    color: var(--green-deep); font-style: italic;
+    margin-bottom: 1rem;
+  }
+  .worker-quote cite { font-size: 0.825rem; color: var(--gray); font-style: normal; font-weight: 600; }
+
+  /* REVENUE */
+  .revenue {
+    background: var(--green-deep);
+    padding: 7rem 5%;
+    color: var(--sand);
+  }
+  .revenue-header { text-align: center; margin-bottom: 4rem; }
+  .revenue-header .section-title { color: var(--sand); }
+  .revenue-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 900px; margin: 0 auto; }
+  .rev-col h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--lime); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .rev-item {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    padding: 0.875rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    font-size: 0.9rem; color: rgba(245,237,214,0.8);
+  }
+  .rev-item:last-child { border-bottom: none; }
+  .rev-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--lime); flex-shrink: 0; margin-top: 7px; }
+
+  /* ROADMAP */
+  .roadmap {
+    background: var(--sand);
+    padding: 7rem 5%;
+  }
+  .roadmap-header { text-align: center; margin-bottom: 4rem; }
+  .phases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .phase {
+    background: var(--cream);
+    border-radius: 18px; overflow: hidden;
+    border: 1.5px solid var(--sand-dark);
+    transition: transform 0.2s;
+  }
+  .phase:hover { transform: translateY(-4px); }
+  .phase-header {
+    padding: 1.5rem;
+    background: var(--green-deep);
+    color: var(--sand);
+  }
+  .phase-header h3 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; }
+  .phase-header span { font-size: 0.75rem; color: var(--lime); font-weight: 600; display: block; margin-bottom: 0.25rem; }
+  .phase-body { padding: 1.5rem; }
+  .phase-item { display: flex; align-items: flex-start; gap: 0.65rem; padding: 0.5rem 0; font-size: 0.85rem; color: var(--charcoal); }
+  .phase-check { color: var(--lime); flex-shrink: 0; margin-top: 1px; }
+  .phase-active .phase-header { background: var(--terracotta); }
+  .phase-active .phase-header span { color: var(--sand); opacity: 0.8; }
+
+  /* PILOT */
+  .pilot {
+    background: var(--green-deep);
+    padding: 6rem 5%;
+    text-align: center;
+    color: var(--sand);
+  }
+  .pilot .section-title { color: var(--sand); }
+  .pilot-desc { color: rgba(245,237,214,0.7); max-width: 520px; margin: 1rem auto 3rem; line-height: 1.75; }
+  .metrics { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+  .metric {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    min-width: 130px;
+  }
+  .metric-icon { font-size: 1.4rem; margin-bottom: 0.4rem; }
+  .metric-label { font-size: 0.75rem; color: rgba(245,237,214,0.6); font-weight: 500; }
+
+  /* FOOTER / CTA */
+  .cta {
+    background: var(--lime);
+    padding: 6rem 5%;
+    text-align: center;
+  }
+  .cta h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800; color: var(--green-deep);
+    line-height: 1.1; margin-bottom: 1rem;
+  }
+  .cta p { color: rgba(26,58,42,0.75); font-size: 1.05rem; max-width: 500px; margin: 0 auto 2.5rem; }
+  .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-dark {
+    background: var(--green-deep);
+    color: var(--lime);
+    padding: 0.875rem 2rem;
+    border-radius: 100px;
+    font-weight: 700; font-size: 0.95rem;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: transform 0.2s;
+  }
+  .btn-dark:hover { transform: translateY(-2px); }
+  .btn-outline-dark {
+    border: 2px solid var(--green-deep);
+    color: var(--green-deep);
+    padding: 0.875rem 2rem;
+    border-radius: 100px;
+    font-weight: 700; font-size: 0.95rem;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: transform 0.2s;
+  }
+  .btn-outline-dark:hover { transform: translateY(-2px); }
+
+  footer {
+    background: var(--green-deep);
+    padding: 3rem 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  footer .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1rem;
+    color: var(--lime);
+  }
+  footer .logo span { color: var(--sand); }
+  footer p { font-size: 0.8rem; color: rgba(245,237,214,0.4); }
+  footer nav { display: flex; gap: 1.5rem; }
+  footer nav a { font-size: 0.8rem; color: rgba(245,237,214,0.5); text-decoration: none; }
+  footer nav a:hover { color: var(--lime); }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .hero { grid-template-columns: 1fr; text-align: center; }
+    .hero-desc { margin: 0 auto 2.5rem; }
+    .hero-actions { justify-content: center; }
+    .hero-visual { order: -1; }
+    .flow-diagram { max-width: 320px; margin: 0 auto; }
+    .steps-grid { grid-template-columns: repeat(2, 1fr); }
+    .steps-grid::before { display: none; }
+    .waste-grid { grid-template-columns: repeat(3, 1fr); }
+    .workers { grid-template-columns: 1fr; }
+    .stats-banner { grid-template-columns: repeat(2, 1fr); }
+    .phases { grid-template-columns: 1fr; }
+    .revenue-cols { grid-template-columns: 1fr; }
+    nav .nav-links { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    .waste-grid { grid-template-columns: repeat(2, 1fr); }
+    .steps-grid { grid-template-columns: 1fr; }
+    .benefits-grid { grid-template-columns: 1fr; }
+    .metrics { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">CICWN <span>India</span></a>
+  <div class="nav-links">
+    <a href="#how">How it Works</a>
+    <a href="#waste">Waste to Value</a>
+    <a href="#workers">Workers</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#join" class="nav-cta">Join the Mission</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">🌿 Clean India Circular Waste Network</div>
+    <h1>Turn India's<br><em>waste crisis</em><br>into circular value.</h1>
+    <p class="hero-desc">A citizen-powered platform that connects garbage reports to trained cleanup crews — and transforms waste into jobs, compost, and recycled materials.</p>
+    <div class="hero-actions">
+      <a href="#how" class="btn-primary">See How it Works →</a>
+      <a href="#join" class="btn-secondary">Partner With Us</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="flow-diagram">
+      <div class="flow-ring"></div>
+      <div class="flow-center">♻️<br>Circular<br>Network</div>
+      <div class="flow-orbit">
+        <div class="flow-node node-report"><div class="flow-icon">📍</div>Report</div>
+        <div class="flow-node node-verify"><div class="flow-icon">✓</div>Verify</div>
+        <div class="flow-node node-clean"><div class="flow-icon">🧹</div>Clean</div>
+        <div class="flow-node node-recycle"><div class="flow-icon">🔄</div>Recycle</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-banner">
+  <div class="stat-item">
+    <div class="stat-num">62<span>M</span></div>
+    <div class="stat-label">tonnes of waste generated in India yearly</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">77<span>%</span></div>
+    <div class="stat-label">goes to unsanitary landfills or open dumps</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">1.4<span>M</span></div>
+    <div class="stat-label">waste workers lacking formal employment</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">₹1<span>T+</span></div>
+    <div class="stat-label">untapped value in recyclable materials</div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div>
+    <div class="section-eyebrow">The Problem</div>
+    <h2 class="section-title">Streets suffer.<br>Workers struggle.<br>Waste piles up.</h2>
+    <p class="section-body">India's rapid urbanisation has outpaced its waste-management infrastructure. Citizens have no reliable way to report garbage, and the workers who collect it lack safety, fair wages, or a future.</p>
+    <ul class="problem-list">
+      <li><span class="icon">🗑️</span> Large garbage piles block roads and cause traffic congestion</li>
+      <li><span class="icon">🤢</span> Odour and vermin increase disease risk in communities</li>
+      <li><span class="icon">📞</span> No reliable channel between citizens and waste services</li>
+      <li><span class="icon">♻️</span> Valuable recyclable materials are lost to unsorted landfills</li>
+      <li><span class="icon">👷</span> Waste workers lack safety equipment, fair pay, or career paths</li>
+    </ul>
+  </div>
+  <div class="problem-visual">
+    <h3>Urban Waste Management Gap</h3>
+    <div class="pollution-bar-group">
+      <div>
+        <div class="p-bar-label"><span>Waste generated</span><span>100%</span></div>
+        <div class="p-bar-track"><div class="p-bar-fill" style="width:100%"></div></div>
+      </div>
+      <div>
+        <div class="p-bar-label"><span>Properly collected</span><span>70%</span></div>
+        <div class="p-bar-track"><div class="p-bar-fill sand" style="width:70%"></div></div>
+      </div>
+      <div>
+        <div class="p-bar-label"><span>Actually recycled</span><span>23%</span></div>
+        <div class="p-bar-track"><div class="p-bar-fill lime" style="width:23%"></div></div>
+      </div>
+      <div>
+        <div class="p-bar-label"><span>Treated scientifically</span><span>11%</span></div>
+        <div class="p-bar-track"><div class="p-bar-fill lime" style="width:11%"></div></div>
+      </div>
+    </div>
+    <p style="font-size:0.7rem;color:rgba(245,237,214,0.4);margin-top:1.5rem;">Source: MoEF&CC & CPCB estimates</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-header">
+    <div class="section-eyebrow">The Solution</div>
+    <h2 class="section-title" style="color:var(--sand)">From report to resource — <br>in four steps.</h2>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">STEP 01</div>
+      <span class="step-icon">📍</span>
+      <div class="step-title">Citizens Report</div>
+      <p class="step-desc">Anyone can report a garbage pile with a photo, GPS location, and description. Reports appear on a live public map. Others can upvote to raise priority.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">STEP 02</div>
+      <span class="step-icon">🔍</span>
+      <div class="step-title">AI Verification</div>
+      <p class="step-desc">GPS, timestamps, and crowdsourced confirmation reduce false reports. AI estimates pile size and severity from photos to help dispatch teams efficiently.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">STEP 03</div>
+      <span class="step-icon">🧹</span>
+      <div class="step-title">Trained Teams Clean Up</div>
+      <p class="step-desc">Locally recruited and trained workers — equipped with safety gear and fair wages — are dispatched to high-priority sites using optimised routes.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">STEP 04</div>
+      <span class="step-icon">🔄</span>
+      <div class="step-title">Waste Becomes Value</div>
+      <p class="step-desc">Sorted materials go to recycling partners. Organic waste becomes compost sold to farmers. Nothing is wasted — the loop is truly circular.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WASTE PROCESSING -->
+<section class="waste" id="waste">
+  <div class="waste-header">
+    <div class="section-eyebrow">Waste Processing</div>
+    <h2 class="section-title">Every type of waste, a purpose.</h2>
+    <p class="section-body" style="max-width:520px">Our sorting and processing system turns each waste category into a revenue stream — and a reason to collect more.</p>
+  </div>
+  <div class="waste-grid">
+    <div class="waste-card wc-plastic">
+      <div class="waste-icon">🧴</div>
+      <div class="waste-type">Plastic</div>
+      <div class="waste-outcome">Sorted, baled, and sold to certified recycling partners for reprocessing.</div>
+      <div class="waste-tag">Sold to recyclers</div>
+    </div>
+    <div class="waste-card wc-paper">
+      <div class="waste-icon">📦</div>
+      <div class="waste-type">Paper & Cardboard</div>
+      <div class="waste-outcome">Shredded and recycled into new paper products or packing material.</div>
+      <div class="waste-tag">Recycled products</div>
+    </div>
+    <div class="waste-card wc-metal">
+      <div class="waste-icon">🥫</div>
+      <div class="waste-type">Metal & Glass</div>
+      <div class="waste-outcome">Recovered intact and sold directly to scrap dealers and glass recyclers.</div>
+      <div class="waste-tag">Scrap revenue</div>
+    </div>
+    <div class="waste-card wc-organic">
+      <div class="waste-icon">🌿</div>
+      <div class="waste-type">Organic Waste</div>
+      <div class="waste-outcome">Composted on-site or at partner facilities. Sold as manure to farmers and nurseries.</div>
+      <div class="waste-tag">Compost & manure</div>
+    </div>
+    <div class="waste-card wc-residual">
+      <div class="waste-icon">⚡</div>
+      <div class="waste-type">Residual Waste</div>
+      <div class="waste-outcome">Sent to licensed waste-to-energy facilities. Future goal: carbon-capture partnerships.</div>
+      <div class="waste-tag orange">Waste to energy</div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKERS -->
+<section class="workers" id="workers">
+  <div>
+    <div class="section-eyebrow">Worker Development</div>
+    <h2 class="section-title">Dignified work.<br>Real futures.</h2>
+    <p class="section-body">We don't just hire workers — we invest in them. Every team member receives comprehensive support to build a stable, skilled career in the circular economy.</p>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <span class="benefit-icon">💰</span>
+        <div class="benefit-title">Fair Wages + Bonuses</div>
+        <div class="benefit-desc">Above-market pay with performance bonuses tied to tonnage and quality.</div>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">🦺</span>
+        <div class="benefit-title">Safety Equipment</div>
+        <div class="benefit-desc">Full PPE, uniforms, and safety training before first day on the job.</div>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">🗣️</span>
+        <div class="benefit-title">English Tutoring</div>
+        <div class="benefit-desc">Weekly language classes open doors to more opportunities.</div>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">📱</span>
+        <div class="benefit-title">Digital Literacy</div>
+        <div class="benefit-desc">Smartphone skills, app use, and financial inclusion training.</div>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">📚</span>
+        <div class="benefit-title">Children's Education</div>
+        <div class="benefit-desc">Support and scholarships for workers' children to stay in school.</div>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">🚀</span>
+        <div class="benefit-title">Career Advancement</div>
+        <div class="benefit-desc">Pathways to team lead, supervisor, and operations manager roles.</div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="worker-quote">
+      <p>"For the first time, I have a uniform, a salary that comes on time, and my children are going to school. This is not just a job — it's a new beginning."</p>
+      <cite>— Aspirational worker, Pilot Neighbourhood Program</cite>
+    </div>
+    <div style="margin-top:2rem; background: var(--green-deep); border-radius:16px; padding:2rem; color:var(--sand);">
+      <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.85rem; color:var(--lime); margin-bottom:1.25rem;">PILOT TARGETS — JOBS CREATED</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+        <div>
+          <div style="font-family:'Syne',sans-serif; font-size:2rem; font-weight:800; color:var(--sand);">20+</div>
+          <div style="font-size:0.75rem; color:rgba(245,237,214,0.55); text-transform:uppercase; letter-spacing:0.05em;">Direct jobs<br>in Phase 1</div>
+        </div>
+        <div>
+          <div style="font-family:'Syne',sans-serif; font-size:2rem; font-weight:800; color:var(--sand);">200+</div>
+          <div style="font-size:0.75rem; color:rgba(245,237,214,0.55); text-transform:uppercase; letter-spacing:0.05em;">Jobs target<br>by Year 3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVENUE -->
+<section class="revenue">
+  <div class="revenue-header">
+    <div class="section-eyebrow" style="color:rgba(126,200,58,0.7); font-size:0.7rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;">Business Model</div>
+    <h2 class="section-title" style="color:var(--sand); margin-top:0.5rem;">Self-sustaining from day one.</h2>
+  </div>
+  <div class="revenue-cols">
+    <div class="rev-col">
+      <h3><span>⚡</span> Short-term revenue</h3>
+      <div class="rev-item"><div class="rev-dot"></div>Apartment association service fees</div>
+      <div class="rev-item"><div class="rev-dot"></div>School & institution contracts</div>
+      <div class="rev-item"><div class="rev-dot"></div>Local business waste collection</div>
+      <div class="rev-item"><div class="rev-dot"></div>CSR funding from corporates</div>
+    </div>
+    <div class="rev-col">
+      <h3><span>🌐</span> Long-term revenue</h3>
+      <div class="rev-item"><div class="rev-dot"></div>Municipal corporation contracts</div>
+      <div class="rev-item"><div class="rev-dot"></div>Sale of recyclables & scrap</div>
+      <div class="rev-item"><div class="rev-dot"></div>Compost and organic manure sales</div>
+      <div class="rev-item"><div class="rev-dot"></div>Data analytics & reporting services</div>
+      <div class="rev-item"><div class="rev-dot"></div>Environmental grants and impact bonds</div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="roadmap" id="roadmap">
+  <div class="roadmap-header">
+    <div class="section-eyebrow">Technology Roadmap</div>
+    <h2 class="section-title">Three phases to national scale.</h2>
+  </div>
+  <div class="phases">
+    <div class="phase phase-active">
+      <div class="phase-header">
+        <span>PHASE 1 — NOW</span>
+        <h3>Digital Foundation</h3>
+      </div>
+      <div class="phase-body">
+        <div class="phase-item"><span class="phase-check">✓</span> Citizen reporting website</div>
+        <div class="phase-item"><span class="phase-check">✓</span> Live garbage map</div>
+        <div class="phase-item"><span class="phase-check">✓</span> Cleanup team coordination</div>
+        <div class="phase-item"><span class="phase-check">✓</span> Waste management blog</div>
+        <div class="phase-item"><span class="phase-check">✓</span> Pilot in one neighbourhood</div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-header">
+        <span>PHASE 2 — 12–24 MONTHS</span>
+        <h3>Smart Scaling</h3>
+      </div>
+      <div class="phase-body">
+        <div class="phase-item"><span class="phase-check" style="color:var(--gray)">→</span> Mobile app (iOS & Android)</div>
+        <div class="phase-item"><span class="phase-check" style="color:var(--gray)">→</span> AI waste classification</div>
+        <div class="phase-item"><span class="phase-check" style="color:var(--gray)">→</span> Route optimisation for teams</div>
+        <div class="phase-item"><span class="phase-check" style="color:var(--gray)">→</span> City-wide expansion</div>
+        <div class="phase-item"><span class="phase-check" style="color:var(--gray)">→</span> Municipal partnerships</div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-header">
+        <span>PHASE 3 — 3–5 YEARS</span>
+        <h3>National Platform</h3>
+      </div>
+      <div class="phase-body">
+        <div class="phase-item"><span class="phase-check" style="color:var(--gray)">→</span> Regional sorting centres</div>
+        <div class="phase-item"><span class="phase-check" style="color:var(--gray)">→</span> Advanced recycling systems</div>
+        <div class="phase-item"><span class="phase-check" style="color:var(--gray)">→</span> Waste-to-energy partnerships</div>
+        <div class="phase-item"><span class="phase-check" style="color:var(--gray)">→</span> Carbon capture research</div>
+        <div class="phase-item"><span class="phase-check" style="color:var(--gray)">→</span> Pan-India operations</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILOT -->
+<section class="pilot">
+  <div class="section-eyebrow" style="color:var(--lime)">Pilot Program</div>
+  <h2 class="section-title">One neighbourhood.<br>Proof that it works.</h2>
+  <p class="pilot-desc">We're starting focused: one ward, apartment community, or school district. Measuring everything. Then growing.</p>
+  <div class="metrics">
+    <div class="metric">
+      <div class="metric-icon">📊</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--lime);">Reports</div>
+      <div class="metric-label">Volume tracked</div>
+    </div>
+    <div class="metric">
+      <div class="metric-icon">⏱️</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--lime);">Response</div>
+      <div class="metric-label">Time to cleanup</div>
+    </div>
+    <div class="metric">
+      <div class="metric-icon">🏋️</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--lime);">Tonnage</div>
+      <div class="metric-label">Waste collected</div>
+    </div>
+    <div class="metric">
+      <div class="metric-icon">♻️</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--lime);">Recycled %</div>
+      <div class="metric-label">Diverted from landfill</div>
+    </div>
+    <div class="metric">
+      <div class="metric-icon">👷</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--lime);">Jobs</div>
+      <div class="metric-label">Created locally</div>
+    </div>
+  </div>
+  <a href="#join" class="btn-primary" style="font-size:1rem;">Become a Pilot Partner →</a>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="join">
+  <h2>Ready to make your city cleaner?</h2>
+  <p>Whether you're a citizen, a business, an apartment association, or a municipality — there's a role for you in the circular network.</p>
+  <div class="cta-actions">
+    <a href="mailto:hello@cicwn.in" class="btn-dark">📧 Get in Touch</a>
+    <a href="#how" class="btn-outline-dark">Learn More</a>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">CICWN <span>India</span></div>
+  <p>© 2024 Clean India Circular Waste Network. Making cities cleaner, one report at a time.</p>
+  <nav>
+    <a href="#">About</a>
+    <a href="#">Report Waste</a>
+    <a href="#">Partner</a>
+    <a href="#">Blog</a>
+  </nav>
+</footer>
+
+</body>
+</html>
